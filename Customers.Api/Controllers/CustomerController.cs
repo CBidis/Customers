@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Customers.Api.Models;
 using Customers.DTOs;
 using Customers.Services;
+using Customers.Services.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -46,6 +47,10 @@ namespace Customers.Api.Controllers
                 CustomerDto customer = await _customerService.GetByIdAsync(id);
                 return Ok(new ApiResponse<CustomerDto>(customer));
             }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(new ApiResponse<string>(ex.Message));
+            }
             catch (Exception ex)
             {
                 return Ok(new ApiResponse<string>(ex.Message));
@@ -55,6 +60,7 @@ namespace Customers.Api.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(void), 201)]
         [ProducesResponseType(typeof(void), 400)]
+        [ProducesResponseType(typeof(void), 404)]
         public async Task<IActionResult> PostAsync([FromBody] CustomerDto customer)
         {
             try
@@ -71,6 +77,7 @@ namespace Customers.Api.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(void), 202)]
         [ProducesResponseType(typeof(void), 400)]
+        [ProducesResponseType(typeof(void), 404)]
         public async Task<IActionResult> PutAsync(int id, [FromBody] CustomerDto customer)
         {
             try
@@ -81,6 +88,10 @@ namespace Customers.Api.Controllers
                 await _customerService.UpdateAsync(customer);
                 return NoContent();
             }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(new ApiResponse<string>(ex.Message));
+            }
             catch (Exception ex)
             {
                 return Ok(new ApiResponse<string>(ex.Message));
@@ -89,12 +100,17 @@ namespace Customers.Api.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(void), 204)]
+        [ProducesResponseType(typeof(void), 404)]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             try
             {
                 await _customerService.DeleteAsync(id);
                 return NoContent();
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(new ApiResponse<string>(ex.Message));
             }
             catch (Exception ex)
             {

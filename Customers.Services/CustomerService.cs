@@ -2,6 +2,7 @@
 using Customers.DAL;
 using Customers.DAL.Models;
 using Customers.DTOs;
+using Customers.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -45,6 +46,10 @@ namespace Customers.Services
             try
             {
                 Customer customer = await GetCustomerByIdAsync(id);
+
+                if (customer == null)
+                    throw new EntityNotFoundException($"There is no Customer with Id {id}");
+
                 return _mapper.Map<CustomerDto>(customer);
             }
             catch (Exception ex)
@@ -61,7 +66,7 @@ namespace Customers.Services
                 Customer customer = await GetCustomerByIdAsync(id);
 
                 if (customer == null)
-                    throw new ArgumentException($"There is no Customer with Id {id}");
+                    throw new EntityNotFoundException($"There is no Customer with Id {id}");
 
                 _dbContext.Remove(customer);
                 return await _dbContext.SaveChangesAsync();
@@ -96,7 +101,7 @@ namespace Customers.Services
                 Customer customer = await GetCustomerByIdAsync(customerDto?.Id ?? 0);
 
                 if (customer == null)
-                    throw new ArgumentException($"There is no Customer with Title {customerDto?.Title}");
+                    throw new EntityNotFoundException($"There is no Customer with Title {customerDto?.Title}");
 
                 Customer customerToUpdate = _mapper.Map<Customer>(customerDto);
                 _dbContext.Update(customerToUpdate);
