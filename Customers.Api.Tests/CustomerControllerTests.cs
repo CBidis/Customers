@@ -108,9 +108,7 @@ namespace Customers.Api.Tests
         [Fact]
         public async Task UpdateCustomer_WhenCalled_ReturnsAccepteddResult()
         {
-            //In every Test Case the DBContext is a new Instance, due to this in order to get a successfull delete we detach the Entity to Delete
-            _inMemoryDB.Entry(_inMemoryDB.Customers.Find(1)).State = EntityState.Detached;
-
+            DetachEntity(1);
             IActionResult acceptedResult = await UpdateRequest(1);
             Assert.IsType<AcceptedResult>(acceptedResult);
         }
@@ -132,14 +130,16 @@ namespace Customers.Api.Tests
         [Fact]
         public async Task DeleteCustomer_WhenCalled_ReturnsNoContentResult()
         {
-            //In every Test Case the DBContext is a new Instance, due to this in order to get a successfull delete we detach the Entity to Delete
-            _inMemoryDB.Entry(_inMemoryDB.Customers.Find(1)).State = EntityState.Detached;
-
+            DetachEntity(1);
             IActionResult notContentResult = await _customerController.DeleteAsync(1);
             Assert.IsType<NoContentResult>(notContentResult);
         }
 
-
+        /// <summary>
+        /// //In every Test Case the DBContext is a new Instance, 
+        /// due to this in order to get a successfull delete we detach the Entity to Update
+        /// </summary>
+        private void DetachEntity(int keyId) => _inMemoryDB.Entry(_inMemoryDB.Customers.Find(keyId)).State = EntityState.Detached;
 
         private async Task<IActionResult> UpdateRequest(int urlId, int customerId = 1)
         {
