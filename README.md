@@ -36,3 +36,46 @@ An xUNIT .NET Core 2.1 Test project with Test methods upon CustomersController t
 ##
 
 </details>
+
+## How To Use/Debug/Test
+
+For starters clone or download the source through https://github.com/CBidis/Customers.git
+
+***Before opening the solution through VS 2017 you need to validate that you have at least version 15.7.5 and .NET Core 2.1 SDK!***
+
+Upon completion of the prerequisites and opening the solution though visual studio before running the application you have to setup the connection string of MySQL Database, the connection string resides in appSettings.json file.
+
+```json
+
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "ConnectionStrings": {
+    "MySQLConn": "server=localhost;database=CustomersDB;uid=root"
+  },
+  "AllowedHosts": "*"
+}
+
+```
+
+After succesfully setting the connection string you have to apply the latest migration through the Package Manager console by running the command ***update-database*** with default project set to ***Customers.Api***.
+
+
+In case you have problems by running the migrations or you have issues with MySQL Databases you can always use the InMemory Database by changing the following of the ***Startup.cs*** 
+
+From:
+
+```csharp
+            services.AddDbContext<CustomerDBContext>(opt =>
+                            opt.UseMySql(Configuration.GetConnectionString("MySQLConn")));
+```
+
+To:
+
+```csharp
+            services.AddDbContext<CustomerDBContext>(opt =>
+                            opt.UseInMemoryDatabase("InMemoryCustomers"));
+```
