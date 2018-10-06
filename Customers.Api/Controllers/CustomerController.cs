@@ -69,7 +69,7 @@ namespace Customers.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(void), 204)]
+        [ProducesResponseType(typeof(void), 202)]
         [ProducesResponseType(typeof(void), 400)]
         public async Task<IActionResult> PutAsync(int id, [FromBody] CustomerDto customer)
         {

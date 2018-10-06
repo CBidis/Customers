@@ -30,7 +30,7 @@ namespace Customers.Services
         {
             try
             {
-                var allCustomers = _dbContext.Customers.Include(c => c.CustomerContact);
+                var allCustomers = _dbContext.Customers.AsNoTracking().Include(c => c.CustomerContact);
                 return _mapper.Map<IEnumerable<CustomerDto>>(allCustomers);
             }
             catch (Exception ex)
@@ -61,7 +61,7 @@ namespace Customers.Services
                 Customer customer = await GetCustomerByIdAsync(id);
 
                 if (customer == null)
-                    throw new ArgumentNullException($"There is no Customer with Id {id}");
+                    throw new ArgumentException($"There is no Customer with Id {id}");
 
                 _dbContext.Remove(customer);
                 return await _dbContext.SaveChangesAsync();
@@ -96,7 +96,7 @@ namespace Customers.Services
                 Customer customer = await GetCustomerByIdAsync(customerDto?.Id ?? 0);
 
                 if (customer == null)
-                    throw new ArgumentNullException($"There is no Customer with Title {customerDto?.Title}");
+                    throw new ArgumentException($"There is no Customer with Title {customerDto?.Title}");
 
                 Customer customerToUpdate = _mapper.Map<Customer>(customerDto);
                 _dbContext.Update(customerToUpdate);
