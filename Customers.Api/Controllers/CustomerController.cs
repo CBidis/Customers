@@ -40,6 +40,7 @@ namespace Customers.Api.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ApiResponse<CustomerDto>), 200)]
+        [ProducesResponseType(typeof(void), 404)]
         public async Task<IActionResult> GetAsync(int id)
         {
             try
@@ -86,7 +87,7 @@ namespace Customers.Api.Controllers
                     return BadRequest(new ApiResponse<string>($"Url Param {id} is not the Same as the requested object {customer?.Id}"));
 
                 await _customerService.UpdateAsync(customer);
-                return NoContent();
+                return Accepted();
             }
             catch (EntityNotFoundException ex)
             {

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customers.Api", "Customers.Api\Customers.Api.csproj", "{7F9957F6-2D5B-455B-B10E-40E7BA640709}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customers.Api", "Customers.Api\Customers.Api.csproj", "{7F9957F6-2D5B-455B-B10E-40E7BA640709}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customers.DAL", "Customers.DAL\Customers.DAL.csproj", "{4E002512-6404-46F8-8EF0-B589C3748DF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customers.DAL", "Customers.DAL\Customers.DAL.csproj", "{4E002512-6404-46F8-8EF0-B589C3748DF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customers.Services", "Customers.Services\Customers.Services.csproj", "{002D7F83-5AE9-40D1-84B9-021F3651367A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customers.Services", "Customers.Services\Customers.Services.csproj", "{002D7F83-5AE9-40D1-84B9-021F3651367A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customers.DTOs", "Customers.DTOs\Customers.DTOs.csproj", "{0987AA0E-5061-45C6-AAAC-866D9D41C663}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customers.DTOs", "Customers.DTOs\Customers.DTOs.csproj", "{0987AA0E-5061-45C6-AAAC-866D9D41C663}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customers.Api.Tests", "Customers.Api.Tests\Customers.Api.Tests.csproj", "{920DBDB7-D63E-4A18-8EB5-8848A5997009}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{0987AA0E-5061-45C6-AAAC-866D9D41C663}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0987AA0E-5061-45C6-AAAC-866D9D41C663}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0987AA0E-5061-45C6-AAAC-866D9D41C663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{920DBDB7-D63E-4A18-8EB5-8848A5997009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{920DBDB7-D63E-4A18-8EB5-8848A5997009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{920DBDB7-D63E-4A18-8EB5-8848A5997009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{920DBDB7-D63E-4A18-8EB5-8848A5997009}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
