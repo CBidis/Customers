@@ -64,7 +64,7 @@ Upon completion of the prerequisites and opening the solution though visual stud
 After succesfully setting the connection string you have to apply the latest migration through the Package Manager console by running the command ***update-database*** with default project set to ***Customers.Api***.
 
 
-In case you have problems by running the migrations or you have issues with MySQL Databases you can always use the InMemory Database by changing the following of the ***Startup.cs*** 
+In case you have problems by running the migrations or you have issues with MySQL Database you can always use the InMemory Database by changing the following line of the ***Startup.cs*** 
 
 From:
 
