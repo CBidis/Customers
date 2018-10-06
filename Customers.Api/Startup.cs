@@ -5,10 +5,12 @@ using Customers.Profiles;
 using Customers.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NLog.Web;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Customers.Api
@@ -30,10 +32,12 @@ namespace Customers.Api
             });
 
             services.AddDbContext<CustomerDBContext>(opt =>
-                            opt.UseMySql("ConnString"));
+                            opt.UseMySql(Configuration.GetConnectionString("MySQLConn")));
 
             //Injecting Customer Service
             services.AddTransient<IOperations<CustomerDto>, CustomerService>();
+            //needed for NLog.Web
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAutoMapper(typeof(CustomerProfile));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -48,6 +52,8 @@ namespace Customers.Api
             {
                 app.UseHsts();
             }
+
+            env.ConfigureNLog("nlog.config");
 
             app.UseHttpsRedirection();
 
